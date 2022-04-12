@@ -49,10 +49,10 @@ import TabBar from "@/components/common/tabBar/TabBar.vue";
 import TabBarItem from "@/components/common/tabBar/TabBarItem.vue";
 export default {
   name: "mainTabBar",
-  components:{
+  components: {
     TabBar,
-    TabBarItem
-  }
+    TabBarItem,
+  },
 };
 </script>
 
