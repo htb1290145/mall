@@ -7,8 +7,12 @@ export function getHomeMulitdata() {
     url: '/home/multidata'
   })
 }
-export function getHomeGoods() {
+export function getHomeGoods(type, page) {
   return request({
-    url: '/recommend'
+    url: '/home/data',
+    params: {
+      type,
+      page
+    }
   })
 }
