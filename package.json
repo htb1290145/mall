@@ -21,6 +21,7 @@
     "@vue/cli-plugin-vuex": "~5.0.0",
     "@vue/cli-service": "~5.0.0",
     "babel-plugin-component": "^1.1.1",
+    "svg-sprite-loader": "^6.0.11",
     "vue-cli-plugin-element": "~1.0.1",
     "vue-template-compiler": "^2.6.14"
   }

@@ -11,8 +11,13 @@ export default {
 </script>
 
 <style>
+#back-top {
+  position: fixed;
+  bottom: 50px;
+  right: 0;
+}
 #back-top img {
-  width: 50px;
-  height: 50px;
+  width: 40px;
+  height: 40px;
 }
 </style>

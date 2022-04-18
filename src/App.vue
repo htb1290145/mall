@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-    <router-view/>
+    <!-- 切换页面后，原页面会销毁。keep-alive保持原页面状态 -->
+    <keep-alive exclude="Detail">
+      <router-view />
+    </keep-alive>
     <main-tab-bar></main-tab-bar>
   </div>
 </template>
@@ -16,5 +19,4 @@ export default {
 
 <style>
 @import "assets/css/base.css";
-
 </style>

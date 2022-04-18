@@ -246,7 +246,7 @@ export default {
   bottom: 8px;
 }
 
-.indi-item {
+.index-item {
   box-sizing: border-box;
   width: 8px;
   height: 8px;
@@ -258,7 +258,7 @@ export default {
   margin: 0 5px;
 }
 
-.indi-item.active {
+.index-item.active {
   background-color: rgba(212, 62, 46, 1);
 }
 </style>
