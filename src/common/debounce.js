@@ -1,4 +1,4 @@
-export function debounce(func, delay) {
+export function debounce(func, delay = 500) {
   let timer = null
   return function (...args) {
     //如果存在timer，即函数又调用了，立马清除定时器，重新开始计时

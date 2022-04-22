@@ -28,12 +28,16 @@ const routes = [{
   {
     path: '/profile',
     name: 'profile',
-    component: () => import('../views/profile/Profile.vue')
+    component: () => import('../views/profile/Profile.vue'),
   },
   {
     path: '/detail/:iid',
     name: 'detail',
-    component: () => import('../views/detail/Detail.vue')
+    component: () => import('../views/detail/Detail.vue'),
+    //跳转路由隐藏底部导航栏
+    meta: {
+      isHide: true
+    }
   }
 ]
 

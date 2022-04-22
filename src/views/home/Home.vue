@@ -40,7 +40,7 @@
     <!-- 自定义组件想监听事件，需加.native === 子组件内部发射this.$emit至父组件 -->
     <back-top
       id="back-top"
-      v-show="isShowBackTop"
+      v-show="isBackTopShow"
       @click.native="backClick"
     ></back-top>
   </div>
@@ -56,10 +56,10 @@ import TabControl from "@/components/common/tabControl/TabControl.vue";
 import BetterScroll from "@/components/common/betterScroll/BetterScroll.vue";
 
 import GoodsList from "@/components/content/goods/GoodsList.vue";
-import BackTop from "@/components/content/backTop/BackTop.vue";
 
 import { getHomeMulitdata, getHomeGoods } from "@/network/home.js";
 import { debounce } from "@/common/debounce.js";
+import { itemListMixin, backTopMixin } from "@/common/mixin.js";
 
 export default {
   name: "Home",
@@ -71,8 +71,9 @@ export default {
     TabControl,
     BetterScroll,
     GoodsList,
-    BackTop,
   },
+  //混入
+  mixins: [itemListMixin, backTopMixin],
   data() {
     return {
       banners: [],
@@ -83,7 +84,6 @@ export default {
         sell: { page: 0, list: [] },
       },
       currentType: "pop",
-      isShowBackTop: false,
       tabOffsetTop: 0,
       isFixed: false,
       saveY: 0,
@@ -101,6 +101,8 @@ export default {
   deactivated() {
     //保存离开时的页面位置
     this.saveY = this.$refs.scroll.scroll.y;
+    //取消全局事件监听
+    this.$bus.$off();
   },
   //created写主要逻辑
   created() {
@@ -114,7 +116,7 @@ export default {
   mounted() {
     //监听item图片加载完成
     const refresh = debounce(this.$refs.scroll.refresh, 50);
-    this.$bus.$on("itemImageLoad", () => {
+    this.$bus.$on("homeItemImageLoad", () => {
       // this.$refs.scroll.refresh();
       refresh();
     });
@@ -144,7 +146,7 @@ export default {
     //内容区域滚动 是否显示组件
     contentScroll(position) {
       //1.判断是否显示backTop
-      this.isShowBackTop = position.y <= -1000;
+      this.isBackTopShow = position.y <= -1000;
       //2.tabControl是否吸顶
       //一开始属于文档流，固定后脱表，下面部分会向上跳动
       this.isFixed = position.y <= -this.tabOffsetTop;

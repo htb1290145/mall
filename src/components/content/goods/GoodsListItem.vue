@@ -24,14 +24,18 @@ export default {
     //监听图片加载
     imageLoad() {
       //bus事件总线，管理事件
-      this.$bus.$emit("itemImageLoad");
+      //1.首页和详情页都使用此组件，但分开监听各自的事件
+      if (this.$route.path.indexOf('home')) {
+        this.$bus.$emit("homeItemImageLoad");
+      } else if (this.$route.path.indexOf('detail')) {
+        this.$bus.$emit("detailItemImageLoad");
+      }
     },
     //跳转详情页
     itemClick() {
       //动态路由 跳转到具体商品的详情页面
-      this.$router.push('/detail/' + this.goodsItem.iid)
+      this.$router.push("/detail/" + this.goodsItem.iid);
     },
-
   },
 };
 </script>

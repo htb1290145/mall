@@ -71,11 +71,11 @@ export default {
   mounted() {
     this.scroll = new BScroll(this.$refs.wrapper, {
       probeType: 3,
-      // ObserveDOM:true
+      // ObserveDOM:true,
       // pullUpLoad:true
     });
     this.scroll.on("scroll", (position) => {
-      console.log(position);
+      // console.log(position);
     });
   },
 };

@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: "BackTop",
-};
+  name: 'BackTop',
+}
 </script>
 
 <style>

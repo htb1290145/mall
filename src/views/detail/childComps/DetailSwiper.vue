@@ -7,18 +7,18 @@
 </template>
 
 <script>
-import Swiper from "@/components/common/swiper/Swiper.vue";
-import SwiperItem from "@/components/common/swiper/SwiperItem.vue";
+import Swiper from '@/components/common/swiper/Swiper.vue'
+import SwiperItem from '@/components/common/swiper/SwiperItem.vue'
 export default {
-  name: "DetailSwiper",
+  name: 'DetailSwiper',
   data() {
-    return {};
+    return {}
   },
   props: {
     topImages: {
       type: Array,
       default() {
-        return [];
+        return []
       },
     },
   },
@@ -26,10 +26,7 @@ export default {
     Swiper,
     SwiperItem,
   },
-  updated(){
-    console.log('更新了');
-  }
-};
+}
 </script>
 
 <style>
