@@ -1,41 +1,26 @@
 <template>
   <div class="detail">
     <!-- 导航 -->
-    <detail-nav-bar
-      id="detail-nav-bar"
-      @item-click="itemClick"
-      ref="detailNavBar"
-    ></detail-nav-bar>
-    <better-scroll
-      id="detail-better-scroll"
-      @scroll="scroll"
-      ref="detailScroll"
-      :probeType="3"
-    >
+    <detail-nav-bar id="detail-nav-bar" @item-click="itemClick" ref="detailNavBar"></detail-nav-bar>
+    <better-scroll id="detail-better-scroll" @scroll="scroll" ref="detailScroll" :probeType="3">
       <!-- v-bind不支持驼峰写法，因为html会把属性名都变成小写 -->
       <detail-swiper :top-images="topImages" id="Swiper"></detail-swiper>
       <div class="info">
         <detail-base-info :goods="goods"></detail-base-info>
         <detail-shop-info :shop="shop"></detail-shop-info>
-        <detail-goods-info
-          :detail-info="detailInfo"
-          @imageLoad="imageLoad"
-          id="Goods-Info"
-        ></detail-goods-info>
-        <detail-param-info
-          :param-info="detailParamInfo"
-          ref="paramInfo"
-          id="Detail-Param-Info"
-        ></detail-param-info>
+        <detail-goods-info :detail-info="detailInfo" @imageLoad="imageLoad" id="Goods-Info"></detail-goods-info>
+        <detail-param-info :param-info="detailParamInfo" ref="paramInfo" id="Detail-Param-Info"></detail-param-info>
       </div>
     </better-scroll>
     <detail-bottom-bar @addCart="addToCart"></detail-bottom-bar>
     <back-top v-show="isBackTopShow" @click.native="backClick"></back-top>
+    <toast :message="message" :is-toast-show="isToastShow"></toast>
   </div>
 </template>
 
 <script>
 import BetterScroll from '@/components/common/betterScroll/BetterScroll.vue'
+import Toast from '@/components/common/toast/Toast.vue'
 
 import DetailNavBar from '@/views/detail/childComps/DetailNavBar.vue'
 import DetailSwiper from '@/views/detail/childComps/DetailSwiper.vue'
@@ -53,6 +38,7 @@ export default {
   name: 'Detail',
   components: {
     BetterScroll,
+    Toast,
     DetailNavBar,
     DetailSwiper,
     DetailBaseInfo,
@@ -74,6 +60,9 @@ export default {
       themeTopYs: [],
       //防抖函数
       getThemeTopYs: null,
+      //toast信息
+      message: '',
+      isToastShow: false,
     }
   },
   //create获取数据
@@ -130,7 +119,13 @@ export default {
       product.realPrice = this.goods.realPrice
       product.iid = this.iid
       //2.添加到购物车
-      this.$store.dispatch('addCart',product)
+      this.$store.dispatch('addCart', product).then((res) => {
+        this.message = res
+        this.isToastShow = true
+        setTimeout(() => {
+          this.isToastShow = false
+        }, 1500)
+      })
     },
     /*
      *网络请求相关
@@ -142,20 +137,13 @@ export default {
         this.topImages = result.itemInfo.topImages
         //2.商品基本信息
         // console.log(res);
-        this.goods = new Goods(
-          result.itemInfo,
-          result.columns,
-          result.shopInfo.services
-        )
+        this.goods = new Goods(result.itemInfo, result.columns, result.shopInfo.services)
         //3.店铺信息
         this.shop = new Shop(result.shopInfo)
         //4.详情页面中的详细商品信息
         this.detailInfo = result.detailInfo
         // 5.参数信息
-        this.detailParamInfo = new GoodsParam(
-          result.itemParams.info,
-          result.itemParams.rule
-        )
+        this.detailParamInfo = new GoodsParam(result.itemParams.info, result.itemParams.rule)
       })
     },
   },
@@ -168,9 +156,11 @@ export default {
   height: 100vh;
   background-color: #fff;
 }
+
 #detail-nav-bar {
   width: 100%;
 }
+
 #detail-better-scroll {
   position: absolute;
   top: 44px;
@@ -181,6 +171,7 @@ export default {
   /* height: calc(100% - 44px); */
   overflow: hidden;
 }
+
 .info {
   padding: 10px 8px;
 }

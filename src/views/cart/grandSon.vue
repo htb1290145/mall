@@ -7,7 +7,7 @@
 
 <script>
 export default {
-  name: "Son",
+  name: 'Son',
   // props: {
   //   grandson: {
   //     type: String,
@@ -16,14 +16,14 @@ export default {
   // },
   created() {
     // console.log("grandson", this.grandson);
-    console.log(this.$attrs);
+    console.log(this.$attrs)
   },
   methods: {
     testGrandSon() {
-      this.$emit("testGrandSon", "从grandSon传递来的事件");
+      this.$emit('testGrandSon', '从grandSon传递来的事件')
     },
   },
-};
+}
 </script>
 
 <style>

@@ -5,6 +5,7 @@ import actions from './actions'
 Vue.use(Vuex)
 const state = {
   cartList: [],
+  // isAllChecked: false
 }
 export default new Vuex.Store({
   state,

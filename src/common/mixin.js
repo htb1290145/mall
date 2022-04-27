@@ -1,11 +1,5 @@
 import BackTop from '@/components/content/backTop/BackTop.vue'
 
-export const itemListMixin = {
-  mounted() {
-    console.log('mixin')
-  },
-}
-
 export const backClick = {
   mounted() {
     // console.log('backClick');

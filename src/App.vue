@@ -10,13 +10,18 @@
 
 <script>
 // @ is an alias to /src
-import mainTabBar from "@/components/content/mainTabBar/mainTabBar.vue";
+import mainTabBar from '@/components/content/mainTabBar/mainTabBar.vue'
 export default {
-  name: "App",
-  components: { mainTabBar },
-};
+  name: 'App',
+  components: {
+    mainTabBar,
+  },
+  data() {
+    return {}
+  },
+}
 </script>
 
 <style>
-@import "assets/css/base.css";
+@import 'assets/css/base.css';
 </style>

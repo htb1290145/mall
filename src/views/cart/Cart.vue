@@ -2,19 +2,19 @@
   <div class="cart">
     <!-- 顶部导航 -->
     <nav-bar class="cart-nav-bar">
-      <div slot="center">
-        购物车
-        <span v-show="isCartNumberShow">({{ cartNumber }})</span>
+      <div slot="center" class="cart-nav-bar-center">
+        <div>购物车</div>
+        <div v-if="$store.state.cartList.length > 0">
+          <span>({{ $store.state.cartList.length }})</span>
+        </div>
       </div>
     </nav-bar>
     <!-- 中间内容区域 -->
     <better-scroll class="cart-better-scroll">
-      <cart-item
-        v-for="item in $store.state.cartList"
-        :key="item.index"
-        :cart-item="item"
-      ></cart-item>
+      <cart-item v-for="item in $store.state.cartList" :key="item.index" :cart-item="item"></cart-item>
     </better-scroll>
+    <!-- 底部汇总 -->
+    <cart-bottom></cart-bottom>
   </div>
 </template>
 
@@ -22,20 +22,15 @@
 import NavBar from '@/components/common/navbar/NavBar.vue'
 import BetterScroll from '@/components/common/betterScroll/BetterScroll.vue'
 import CartItem from '@/components/common/cartItem/CartItem.vue'
+import CartBottom from '@/views/cart/childComps/CartBottom.vue'
 export default {
   name: 'Cart',
-  data() {
-    return {
-      cartNumber: null,
-      isCartNumberShow: false,
-    }
-  },
   components: {
     NavBar,
     BetterScroll,
     CartItem,
+    CartBottom,
   },
-  methods: {},
 }
 </script>
 
@@ -51,5 +46,9 @@ export default {
   right: 0;
   bottom: 49px;
   overflow: hidden;
+}
+.cart-nav-bar-center {
+  display: flex;
+  justify-content: center;
 }
 </style>
